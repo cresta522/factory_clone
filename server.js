@@ -52,6 +52,7 @@ io.on(
                     }
                     
                     io.emit('spread message', objMessage);
+                    io.emit('disconnected', user_name);
                 }
             }
         );
@@ -60,8 +61,6 @@ io.on(
         socket.on(
             'new message',
             (message) => {
-                console.log('new message is ' + message);
-                
                 const dtStr = getNow();
                 
                 const objMessage = {
@@ -79,7 +78,6 @@ io.on(
         socket.on(
             'join',
             (name) => {
-                console.log('joined: ' + name);
                 user_name = name;
                 
                 userCnt++;
@@ -87,12 +85,12 @@ io.on(
                 const dtStr = getNow();
                 
                 const objMessage = {
-                    user_name: ADMIN_NAME,
-                    message: `${ADMIN_NAME} joined. there are ${userCnt} participants`,
+                    user_name: user_name,
+                    message: `[info]${user_name} joined. there are ${userCnt} participants`,
                     date: dtStr
                 }
                 
-                io.emit('spread message', objMessage);
+                io.emit('spread joined', objMessage);
             }
         );
     }

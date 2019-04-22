@@ -19,8 +19,6 @@ $('#form_message').on('submit', () => {
         message = $('#message').val();
     }
     
-    console.log('new message is ' + message);
-    
     // create event 'new message'
     socket.emit('new message', message);
     
@@ -35,8 +33,6 @@ $('#form_join').on('submit', () => {
     if($('#input_name').val().trim().length > 0){
         name = $('#input_name').val();
     }
-    
-    console.log('user nema is ' + name);
     
     socket.emit('join', name);
     
@@ -55,11 +51,32 @@ $(() => {
 socket.on(
     'spread message',
     (objMessage) => {
-        console.log('spread message: ', objMessage);
+        const message = `[${objMessage.user_name}] ${objMessage.date} - ${objMessage.message}`;
+        
+        const elem = $('<p>').text(message);
+        $('#messages').prepend(elem);
+    }
+);
+
+socket.on(
+    'spread joined',
+    (objMessage) => {
         
         const message = `[${objMessage.user_name}] ${objMessage.date} - ${objMessage.message}`;
         
-        const li_elem = $('<li>').addClass('list-group-item').text(message);
-        $('#messages').prepend(li_elem);
+        const p_elem = $('<p>').addClass('text-info').text(message);
+        const li_elem = $('<li>').attr('id', objMessage.user_name).addClass('list-group-item').text(objMessage.user_name);
+        
+        $('#messages').prepend(p_elem);
+        
+        $('#users').append($(li_elem));
+        
+    }
+);
+
+socket.on(
+    'disconnected',
+    (user_name) => {
+        $('#users #' + user_name).remove();
     }
 );
