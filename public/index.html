@@ -12,17 +12,29 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <form>
+            <div class="row" id="login_screen">
+                <div class="col">
+                    <form id="form_join">
                         <div class="form-group">
-                            <label for="message">message</label>
-                            <input type="text" class="form-control" id="message" placeholder="message">
+                            <label for="input_name">your name</label>
+                            <input type="text" class="form-control" id="input_name" placeholder="name">
                         </div>
-                        <button type="button" id="btn_send" class="btn btn-primary">送信する</button>
+                        <button type="submit" id="btn_sign_in" class="btn btn-primary">入室する</button>
                     </form>
                 </div>
-                <div class="col-sm" id="messages">
+            </div>
+            
+            <div class="row" id="message_screen">
+                <div class="col">
+                    <form id="form_message">
+                        <div class="form-group">
+                            <label for="message"><span id="show_name"></span>: message</label>
+                            <input type="text" class="form-control" id="message" placeholder="message">
+                        </div>
+                        <button type="submit" id="btn_send" class="btn btn-primary">送信する</button>
+                    </form>
+                </div>
+                <div class="col" id="messages">
                     <ul class="list-group">
                         
                     </ul>

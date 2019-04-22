@@ -24,4 +24,6 @@ npm i express -S
 npm i socket.io -S
 ```
 
-3. 
+3. 参考URL  
+
+[Webチャットアプリを作る ( Node.js + Socket.io )](https://www.hiramine.com/programming/chat_nodejs_socketio/index.html)

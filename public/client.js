@@ -13,13 +13,11 @@ socket.on(
     }
 );
 
-$('#btn_send').on('click', () => {
+$('#form_message').on('submit', () => {
     let message = 'no message';
     if($('#message').val().trim().length > 0){
         message = $('#message').val();
     }
-    
-    console.log($('#message').val());
     
     console.log('new message is ' + message);
     
@@ -31,12 +29,35 @@ $('#btn_send').on('click', () => {
     return false;
 });
 
+$('#form_join').on('submit', () => {
+    
+    let name = 'no name';
+    if($('#input_name').val().trim().length > 0){
+        name = $('#input_name').val();
+    }
+    
+    console.log('user nema is ' + name);
+    
+    socket.emit('join', name);
+    
+    $('#show_name').text(name);
+    $('#message_screen').show();
+    $('#login_screen').hide();
+    
+    return false;
+});
+
+$(() => {
+    $('#message_screen').hide();
+});
+
+// socket functions
 socket.on(
     'spread message',
     (objMessage) => {
         console.log('spread message: ', objMessage);
         
-        const message = `${objMessage.date} - ${objMessage.message}`;
+        const message = `[${objMessage.user_name}] ${objMessage.date} - ${objMessage.message}`;
         
         const li_elem = $('<li>').addClass('list-group-item').text(message);
         $('#messages').prepend(li_elem);
