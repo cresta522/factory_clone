@@ -1,0 +1,23 @@
+{
+  "name": "mychat",
+  "version": "1.0.0",
+  "description": "socket.io node.js 等を使った簡易チャット 解説、コメントは多め。",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cresta522/jquery_chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cresta522/jquery_chat/issues"
+  },
+  "homepage": "https://github.com/cresta522/jquery_chat#readme",
+  "dependencies": {
+    "experss": "^1000.0.0",
+    "socket.io": "^2.2.0"
+  }
+}
