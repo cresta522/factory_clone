@@ -65,3 +65,6 @@ typings/
 .tmux/
 .viminfo
 .config
+.bash_logout
+.bashrc
+.profile
