@@ -10,6 +10,7 @@ socket.on(
     'connect',
     () =>{
         console.log('connected!');
+        $('title').text('Factorio Clone');
     }
 );
 
