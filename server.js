@@ -4,6 +4,11 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // objects
 const app = express();
@@ -95,11 +100,89 @@ io.on(
         );
     }
 );
-
 // -- events
 
-// public dir
+// setting to passport
+app.use(passport.initialize());
+
+// body-parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// use session
+app.use(session({secret: 'nsaeo4asenljans434lkj$#km'}));
+app.use(passport.session());
+
+app.use(flash());
+
+passport.serializeUser(function(user, done) {
+  console.log('serializeUser');
+  console.log(user);
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+/*  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+*/
+  console.log('deserializeUser');
+  done(null, user);
+});
+// --use session
+
+// routes
+// あとでroutesは外だしする。
+
+app.get('/', isAuthenticated, (req, res) => {
+  console.log('isAuthenticated: ' + isAuthenticated);
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/login', (req, res) => {
+  console.log(req.flash());
+  res.sendFile(__dirname + '/public/login.html');
+});
+
+app.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })
+  
+  
+);
+
+// default case 
 app.use(express.static(__dirname + '/public'));
+
+// login strategy
+passport.use(
+  'local',
+  new LocalStrategy( (username, password, done) => {
+    // dbg: hard code
+    console.log('username: ',username);
+    console.log('password: ',password);
+    if(username == 'admin' && password == 'admin'){
+      //success
+      console.log('success!!');
+      return done(null, username);
+    } else {
+      //failed..
+      return done(null, false, {validatemessage: '失敗'});
+    }
+  })
+);
+
+// auth function
+function isAuthenticated(req, res, next){
+  if (req.isAuthenticated()) {  // 認証済
+    return next();
+  }
+  else {  // 認証されていない
+    res.redirect('/login');  // ログイン画面に遷移
+  }
+}
 
 // boot
 server.listen(

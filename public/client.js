@@ -1,6 +1,7 @@
 // request to connect
 const socket = io.connect();
 
+
 /*
     After connectiong, 
     event occured "connection" in server and "connect" in client
@@ -11,6 +12,7 @@ socket.on(
     () =>{
         console.log('connected!');
         $('title').text('Factorio Clone');
+        //console.log(flash);
     }
 );
 

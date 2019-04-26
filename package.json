@@ -1,5 +1,5 @@
 {
-  "name": "mychat",
+  "name": "factory_clone",
   "version": "1.0.0",
   "description": "factorio clone",
   "main": "server.js",
@@ -8,16 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cresta522/jquery_chat.git"
+    "url": "git+https://github.com/cresta522/factory_clone.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cresta522/jquery_chat/issues"
+    "url": "https://github.com/cresta522/factory_clone/issues"
   },
-  "homepage": "https://github.com/cresta522/jquery_chat#readme",
+  "homepage": "https://github.com/cresta522/factory_clone#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "experss": "^1000.0.0",
+    "express-session": "^1.16.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "socket.io": "^2.2.0"
   }
 }
