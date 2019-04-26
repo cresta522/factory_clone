@@ -102,21 +102,51 @@ io.on(
 );
 // -- events
 
-// setting to passport
-app.use(passport.initialize());
-
 // body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// login strategy
+passport.use(
+  'local',
+  new LocalStrategy( ( username, password, done) => {
+    // dbg: hard code
+    console.log('username: ', username);
+    console.log('password: ', password);
+    if(username == 'admin' && password == 'admin'){
+      //success
+      console.log('success!!');
+      //req.login();
+
+      return done(null, username);
+    } else {
+      //failed..
+      //req.flash('login_error', '失敗');
+      console.log("login error");
+      return done(null, false, {login_error: '失敗'});
+    }
+  })
+);
+
+/**
+ * 
+ * 設定順序これ大事…
+ * 
+ */
+
 // use session
-app.use(session({secret: 'nsaeo4asenljans434lkj$#km'}));
+app.use(session({secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
+
+// setting to passport
+app.use(passport.initialize());
+
 app.use(passport.session());
 
 app.use(flash());
 
 passport.serializeUser(function(user, done) {
   console.log('serializeUser');
-  console.log(user);
+  console.log('user', user);
   done(null, user);
 });
 
@@ -138,8 +168,7 @@ app.get('/', isAuthenticated, (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/login', (req, res) => {
-  console.log(req.flash());
+app.get('/login', (req, res) => {  
   res.sendFile(__dirname + '/public/login.html');
 });
 
@@ -149,33 +178,15 @@ app.post('/login',
     failureRedirect: '/login',
     failureFlash: true
   })
-  
-  
 );
 
 // default case 
 app.use(express.static(__dirname + '/public'));
 
-// login strategy
-passport.use(
-  'local',
-  new LocalStrategy( (username, password, done) => {
-    // dbg: hard code
-    console.log('username: ',username);
-    console.log('password: ',password);
-    if(username == 'admin' && password == 'admin'){
-      //success
-      console.log('success!!');
-      return done(null, username);
-    } else {
-      //failed..
-      return done(null, false, {validatemessage: '失敗'});
-    }
-  })
-);
-
 // auth function
 function isAuthenticated(req, res, next){
+
+  console.log('isAuthenticated: ' + req.isAuthenticated());
   if (req.isAuthenticated()) {  // 認証済
     return next();
   }
