@@ -1,5 +1,6 @@
 {
-    "watch": ["public","server.js"],
+    "watch": [""],
     "ext": "js",
-    "exec": "node ./server.js"
+    "exec": "SET DEBUG=factorioclone:* & node ./bin/www"
+    
 }

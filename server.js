@@ -1,32 +1,60 @@
 'use strict';
 
 // modules
+const createError = require('http-errors');
 const express = require('express');
+const path = require('path');
 const http = require('http');
 const socketIO = require('socket.io');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bodyParser = require('body-parser');
+// const LocalStrategy = require('passport-local').Strategy;
+// const logger = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+
+// routes module
+const indexRouter = require('./routes/index');
 
 // objects
 const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
-// consts
-const PORT = process.env.PORT || 7000;
-const ADMIN_NAME = '**System**';
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-// functions
-const getNow = () => {
-    const dt = new Date();
-    return `${dt.getFullYear()}/${dt.getMonth() + 1}/${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;
-};
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+//app.use(express.static(path.join(__dirname, 'public')));
 
-// すべての接続で共通する変数等
-let userCnt = 0;
+// use session
+app.use(session({secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
+// setting to passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//routes
+app.use('/', indexRouter);
+
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 // events
 io.on(
@@ -102,31 +130,29 @@ io.on(
 );
 // -- events
 
-// body-parser
-app.use(bodyParser.urlencoded({ extended: true }));
+module.exports = app;
 
+// // login strategy
+// passport.use(
+//   'local',
+//   new LocalStrategy( ( username, password, done) => {
+//     // dbg: hard code
+//     console.log('username: ', username);
+//     console.log('password: ', password);
+//     if(username == 'admin' && password == 'admin'){
+//       //success
+//       console.log('success!!');
+//       //req.login();
 
-// login strategy
-passport.use(
-  'local',
-  new LocalStrategy( ( username, password, done) => {
-    // dbg: hard code
-    console.log('username: ', username);
-    console.log('password: ', password);
-    if(username == 'admin' && password == 'admin'){
-      //success
-      console.log('success!!');
-      //req.login();
-
-      return done(null, username);
-    } else {
-      //failed..
-      //req.flash('login_error', '失敗');
-      console.log("login error");
-      return done(null, false, {login_error: '失敗'});
-    }
-  })
-);
+//       return done(null, username);
+//     } else {
+//       //failed..
+//       //req.flash('login_error', '失敗');
+//       console.log("login error");
+//       return done(null, false, {login_error: '失敗'});
+//     }
+//   })
+// );
 
 /**
  * 
@@ -134,71 +160,65 @@ passport.use(
  * 
  */
 
-// use session
-app.use(session({secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
 
-// setting to passport
-app.use(passport.initialize());
 
-app.use(passport.session());
 
-app.use(flash());
 
-passport.serializeUser(function(user, done) {
-  console.log('serializeUser');
-  console.log('user', user);
-  done(null, user);
-});
+// passport.serializeUser(function(user, done) {
+//   console.log('serializeUser');
+//   console.log('user', user);
+//   done(null, user);
+// });
 
-passport.deserializeUser(function(user, done) {
-/*  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-*/
-  console.log('deserializeUser');
-  done(null, user);
-});
-// --use session
+// passport.deserializeUser(function(user, done) {
+// /*  User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// */
+//   console.log('deserializeUser');
+//   done(null, user);
+// });
+// // --use session
 
-// routes
-// あとでroutesは外だしする。
+// // routes
+// // あとでroutesは外だしする。
 
-app.get('/', isAuthenticated, (req, res) => {
-  console.log('isAuthenticated: ' + isAuthenticated);
-  res.sendFile(__dirname + '/public/index.html');
-});
+// app.get('/', isAuthenticated, (req, res) => {
+//   console.log('isAuthenticated: ' + isAuthenticated);
+//   res.sendFile(__dirname + '/public/index.html');
+// });
 
-app.get('/login', (req, res) => {  
-  res.sendFile(__dirname + '/public/login.html');
-});
+// app.get('/login', (req, res) => {  
+//   res.sendFile(__dirname + '/public/login.html');
+// });
 
-app.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  })
-);
+// app.post('/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+//   })
+// );
 
-// default case 
-app.use(express.static(__dirname + '/public'));
+// // default case 
+// app.use(express.static(__dirname + '/public'));
 
-// auth function
-function isAuthenticated(req, res, next){
+// // auth function
+// function isAuthenticated(req, res, next){
 
-  console.log('isAuthenticated: ' + req.isAuthenticated());
-  if (req.isAuthenticated()) {  // 認証済
-    return next();
-  }
-  else {  // 認証されていない
-    res.redirect('/login');  // ログイン画面に遷移
-  }
-}
+//   console.log('isAuthenticated: ' + req.isAuthenticated());
+//   if (req.isAuthenticated()) {  // 認証済
+//     return next();
+//   }
+//   else {  // 認証されていない
+//     res.redirect('/login');  // ログイン画面に遷移
+//   }
+// }
 
 // boot
-server.listen(
-    PORT,
-    () => {
-        console.log('Server on port %d', PORT);
-    }
-);
+// server.listen(
+//     PORT,
+//     () => {
+//         console.log('Server on port %d', PORT);
+//     }
+// );
