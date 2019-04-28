@@ -1,5 +1,37 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  div.ch-container
+    div.row
+      div.row
+        div.col-md-12.center.login-header
+          //- h1= title
+          //- p Welcome to #{title}
+          h2 Welcome to #{title}
+      
+      div.row
+        div.well.col-md-5.center.login-box
+          div.alert.alert-info
+            | Please login with your Username and Password.
+          form.form-horizontal(action="/login", method="post")
+            fieldset
+              div.input-group.input-group-lg
+                span.input-group-addon: i.glyphicon.glyphicon-user.red
+                input.form-control(type="text", name="username", placeholder="Username")
+              div.inputclearfix: br
+
+              div.input-group.input-group-lg
+                span.input-group-addon: i.glyphicon.glyphicon-lock.red
+                input.form-control(type="password", name="password", placeholder="Password")
+              div.inputclearfix
+
+              div.input-prepend
+                label.remember(for="remember") 
+                  input#remember(type="checkbox") 
+                  |  Remember me 
+                //- <label class="remember" for="remember"><input type="checkbox" id="remember"> Remember me</label>
+              div.inputclearfix
+
+              p.center.col-md-5
+                button.btn.btn-primary(type="submit") Login

@@ -28,7 +28,6 @@ app.set('view engine', 'jade');
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
 
 // use session
 app.use(session({secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
@@ -39,6 +38,8 @@ app.use(flash());
 
 //routes
 app.use('/', indexRouter);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

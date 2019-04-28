@@ -1,6 +1,5 @@
 {
     "watch": [""],
-    "ext": "js",
+    "ext": "js,jade",
     "exec": "SET DEBUG=factorioclone:* & node ./bin/www"
-    
 }
