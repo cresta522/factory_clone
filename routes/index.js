@@ -7,11 +7,16 @@ router.get('/', Authenticator.isAuthenticated, (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    const message = req.flash();
-    res.render('login', {
-        message: message.error,
-        title: 'ログイン'
-    });
+    
+    if(req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        const message = req.flash();
+        res.render('login', {
+            message: message.error,
+            title: 'ログイン'
+        });
+    }
 });
 
 router.post('/login', (req, res, next) => {

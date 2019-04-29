@@ -7,11 +7,10 @@ const path = require('path');
 const http = require('http');
 const socketIO = require('socket.io');
 const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
-// const logger = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+const Authenticator = require('./services/auth/authenticator');
 
 // routes module
 const indexRouter = require('./routes/index');
@@ -30,11 +29,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // use session
-app.use(session({secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
+app.use(session({cookie: {maxAge: 1000 * 60 * 60 * 24}, secret: 'nsaeo4asenljans434lkj$#km', resave:false, saveUninitialized:false}));
 // setting to passport
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+Authenticator.initialize(app);
+Authenticator.setStrategy();
 
 //routes
 app.use('/', indexRouter);

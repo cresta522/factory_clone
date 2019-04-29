@@ -1,10 +1,9 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 const authSetting = require('../config/auth.json');
-const bodyParser = require('body-parser');
 
 class Authenticator{
-    static constructor(app){
+    static initialize(app){
         // initialize passport
         app.use(passport.initialize());
         
@@ -20,7 +19,7 @@ class Authenticator{
         // 毎回セッションに保存されたユーザ情報を復元する
         passport.deserializeUser((serializeUser, done) => {
             //DBから取得したりするけど、今回は何もしないです。
-            return done(null, user);
+            return done(null, serializeUser);
         })
     }
 
@@ -36,7 +35,7 @@ class Authenticator{
                     passwordField: authSetting.passwordField,
                     passReqToCallback: true
                 },
-                (req, username, password, done => {
+                ((req, username, password, done) => {
                     if(username == 'admin' && password == 'admin'){
                         //success
                         console.log('success!!');
