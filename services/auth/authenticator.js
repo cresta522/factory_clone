@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const authSetting = require('../config/auth.json');
+const debug = require('debug')('factorioclone:*');
 
 class Authenticator{
     static initialize(app){
@@ -29,6 +30,7 @@ class Authenticator{
         // local strategy: ID PWのみの認証方法        
 
         passport.use(
+            authSetting.strategyName,
             new LocalStrategy(
                 {
                     usernameField: authSetting.usernameField,
@@ -36,17 +38,17 @@ class Authenticator{
                     passReqToCallback: true
                 },
                 ((req, username, password, done) => {
+                    
+                    // validate
                     if(username == 'admin' && password == 'admin'){
                         //success
-                        console.log('success!!');
-                        //req.login();
-                  
                         return done(null, username);
                     } else {
                         //failed..
                         req.flash('login_error', '失敗');
                         return done(null, false);
                     }
+                    
                 })
             )
         )

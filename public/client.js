@@ -11,7 +11,8 @@ socket.on(
     'connect',
     () =>{
         console.log('connected!');
-        $('title').text('Factorio Clone');
+        $('title').text('Factorio Clone');        
+        $('[name=username]').focus();
         //console.log(flash);
     }
 );

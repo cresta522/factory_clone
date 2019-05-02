@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Authenticator = require('../services/auth/authenticator');
+const debug = require('debug')('factorioclone:*');
+const authSetting = require('../services/config/auth.json');
 
 router.get('/', Authenticator.isAuthenticated, (req, res) => {
-    res.render('index');
+    res.render('index',{
+        title: 'Faclone'
+    });
 });
 
 router.get('/login', (req, res) => {
@@ -14,12 +18,14 @@ router.get('/login', (req, res) => {
         const message = req.flash();
         res.render('login', {
             message: message.error,
-            title: 'ログイン'
+            title: 'ログイン',
+            debugMode: authSetting.debugMode
         });
     }
 });
 
 router.post('/login', (req, res, next) => {
+    debug(req.body);
     Authenticator.authenticate(req, res, next);
 });
 

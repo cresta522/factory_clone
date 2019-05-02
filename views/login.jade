@@ -1,3 +1,6 @@
+mixin name(vars)
+  
+
 extends layout
 
 block content
@@ -14,16 +17,24 @@ block content
         div.well.col-md-5.center.login-box
           div.alert.alert-info
             | Please login with your Username and Password.
+            
           form.form-horizontal(action="/login", method="post")
             fieldset
               div.input-group.input-group-lg
                 span.input-group-addon: i.glyphicon.glyphicon-user.red
-                input.form-control(type="text", name="username", placeholder="Username")
+                if debugMode
+                  input.form-control(type="text", name="username", placeholder="Username", value="admin")
+                else
+                  input.form-control(type="text", name="username", placeholder="Username")
               div.inputclearfix: br
 
               div.input-group.input-group-lg
                 span.input-group-addon: i.glyphicon.glyphicon-lock.red
-                input.form-control(type="password", name="password", placeholder="Password")
+                if debugMode
+                  input.form-control(type="text", name="password", placeholder="Password", value="admin")
+                else
+                  input.form-control(type="password", name="password", placeholder="Password")
+
               div.inputclearfix
 
               div.input-prepend

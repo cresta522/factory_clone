@@ -11,14 +11,15 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const Authenticator = require('./services/auth/authenticator');
+const debug = require('debug')('factorioclone:*');
 
 // routes module
 const indexRouter = require('./routes/index');
 
 // objects
 const app = express();
-const server = http.Server(app);
-const io = socketIO(server);
+const server = http.createServer(app);
+const io = socketIO.listen(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -65,8 +66,7 @@ io.on(
     (socket) => {
         // all chat events!
         // 1接続ごとの処理
-        
-        console.log('connected');
+        debug('connected');
         
         let user_name = '';
         
