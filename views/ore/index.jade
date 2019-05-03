@@ -1,0 +1,90 @@
+extends ../layout
+
+block content
+
+  //- noscript starts
+  noscript
+    div.alert.alert-block.col-md-12
+      h4.alert-heading
+        | Warning!
+      p
+        | You need to have 
+        a(href="http://en.wikipedia.org/wiki/JavaScript", target="_blank")
+          | JavaScript
+        | enabled to use this site.
+  //- noscript ends
+
+  //- <!-- content starts -->
+  div#content.col-lg-10.col-sm-10
+    //- breadcrumb start
+    div
+      ul.breadcrumb
+        li
+          a(href="/")
+            | Home
+        li
+          a(href="/ore")
+            | 鉱石
+        li
+          a(href="/ore")
+            | ダッシュボード
+    //- breadcrumb end
+
+    div.row
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="6 new members.")
+          i.glyphicon.glyphicon-asterisk.blue
+          div
+            | Total ores
+          div
+            | 0
+          span.notification
+            | 0
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="4 new pro members.")
+          i.glyphicon.glyphicon-ok.green
+          div
+            | 必要量
+          div
+            | 0
+          span.notification.green
+            | 0
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="$34 new sales.")
+          i.glyphicon.glyphicon-remove.yellow
+          div
+            | 不足量
+          div
+            | 0
+          span.notification.yellow
+            | 0
+  
+    //- Introduction start
+    div.row
+      div.box.col-md-12
+        div.box-inner
+          div.box-header.well
+            h2
+              i.glyphicon.glyphicon-info-sign
+              |  Introduction
+            div.box-icon
+              a.btn.btn-setting.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-cog
+              a.btn.btn-minimize.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-chevron-up
+              a.btn.btn-close.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-remove
+
+          div.box-content.row
+            div.col-lg-7.col-md-12
+              h1
+                | 鉱石の掘削
+                br
+                small
+                  | ここで採掘量を決める。何を採掘するのか、自動か、手動か、等。              
+
+              p.center-block.download-buttons
+                a.btn.btn-primary.btn-lg(href="/")
+                  i.glyphicon.glyphicon-chevron-left.glyphicon-white
+                  |  Back to 
+    //- Introduction end

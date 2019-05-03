@@ -15,6 +15,7 @@ const debug = require('debug')('factorioclone:*');
 
 // routes module
 const indexRouter = require('./routes/index');
+const oreRouter = require('./routes/ore');
 
 // objects
 const app = express();
@@ -41,6 +42,7 @@ Authenticator.setStrategy();
 
 //routes
 app.use('/', indexRouter);
+app.use('/ore', oreRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -134,94 +136,3 @@ io.on(
 // -- events
 
 module.exports = app;
-
-// // login strategy
-// passport.use(
-//   'local',
-//   new LocalStrategy( ( username, password, done) => {
-//     // dbg: hard code
-//     console.log('username: ', username);
-//     console.log('password: ', password);
-//     if(username == 'admin' && password == 'admin'){
-//       //success
-//       console.log('success!!');
-//       //req.login();
-
-//       return done(null, username);
-//     } else {
-//       //failed..
-//       //req.flash('login_error', '失敗');
-//       console.log("login error");
-//       return done(null, false, {login_error: '失敗'});
-//     }
-//   })
-// );
-
-/**
- * 
- * 設定順序これ大事…
- * 
- */
-
-
-
-
-
-// passport.serializeUser(function(user, done) {
-//   console.log('serializeUser');
-//   console.log('user', user);
-//   done(null, user);
-// });
-
-// passport.deserializeUser(function(user, done) {
-// /*  User.findById(id, function(err, user) {
-//     done(err, user);
-//   });
-// */
-//   console.log('deserializeUser');
-//   done(null, user);
-// });
-// // --use session
-
-// // routes
-// // あとでroutesは外だしする。
-
-// app.get('/', isAuthenticated, (req, res) => {
-//   console.log('isAuthenticated: ' + isAuthenticated);
-//   res.sendFile(__dirname + '/public/index.html');
-// });
-
-// app.get('/login', (req, res) => {  
-//   res.sendFile(__dirname + '/public/login.html');
-// });
-
-// app.post('/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })
-// );
-
-// // default case 
-// app.use(express.static(__dirname + '/public'));
-
-// // auth function
-// function isAuthenticated(req, res, next){
-
-//   console.log('isAuthenticated: ' + req.isAuthenticated());
-//   if (req.isAuthenticated()) {  // 認証済
-//     return next();
-//   }
-//   else {  // 認証されていない
-//     res.redirect('/login');  // ログイン画面に遷移
-//   }
-// }
-
-// boot
-// server.listen(
-//     PORT,
-//     () => {
-//         console.log('Server on port %d', PORT);
-//     }
-// );

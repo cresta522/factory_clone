@@ -28,15 +28,7 @@ html(lang="ja")
         link(rel="shortcut icon", href="/img/favicon.ico")
 
     body
-        include ./header
-        //- <!-- container starts -->
-        div.ch-container
-            div.row
-                include ./leftmenu
-                block content
-
-            //- <!-- content ends -->
-        //- <!-- container ends -->
+        block content
 
         script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
 

@@ -1,0 +1,113 @@
+//- <!-- topbar starts -->
+div.navbar.navbar-default(role="navigation")
+  div.navbar-inner
+    button.navbar-toggle.pull-left.animated.flip(type="button")
+      span.sr-only
+        | Toggle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href="index.html")
+      img.hidden-xs(src="img/logo20.png", alt="Charisma Logo")
+      span
+        | #{title}
+
+    //- <!-- user dropdown starts -->
+    div.btn-group.pull-right
+      button.btn.btn-default.dropdown-toggle(data-toggle="dropdown")
+        i.glyphicon.glyphicon-user
+        span.hidden-sm.hidden-xs
+          | admin
+        span.caret
+      ul.dropdown-menu
+        li
+          a(href="")
+            | Profile
+        li.divider
+        li
+          a(href="/logout")
+            | Logout
+    //- <!-- user dropdown ends -->
+
+    //- <!-- theme selector starts -->
+    div.btn-group.pull-right.theme-container.animated.tada
+      button.btn.btn-default.dropdown-toggle(data-toggle="dropdown")
+        i.glyphicon.glyphicon-tint
+        span.hidden-sm.hidden-xs
+          | Change Theme / Skin
+        span.caret
+      ul#themes.dropdown-menu
+        li
+          a(href="#", data-value="classic")
+            i.whitespace
+            | Classic
+        li
+          a(href="#", data-value="cerulean")
+            i.whitespace
+            | Cerulean
+        li
+          a(href="#", data-value="cyborg")
+            i.whitespace
+            | Cyborg
+        li
+          a(href="#", data-value="simplex")
+            i.whitespace
+            | Simplex
+        li
+          a(href="#", data-value="darkly")
+            i.whitespace
+            | Darkly
+        li
+          a(href="#", data-value="lumen")
+            i.whitespace
+            | Lumen
+        li
+          a(href="#", data-value="slate")
+            i.whitespace
+            | Slate
+        li
+          a(href="#", data-value="spacelab")
+            i.whitespace
+            | Spacelab
+        li
+          a(href="#", data-value="united")
+            i.whitespace
+            | United
+    //- <!-- theme selector ends -->
+
+    //- <!-- search forms starts -->
+    ul.collapse.navbar-collapse.nav.navbar-nav.top-menu
+      li
+        a(href="#")
+          i.glyphicon.glyphicon-globe
+          |  Visit Site
+      
+      li.dropdown
+        a(href="#", data-toggle="dropdown")
+          i.glyphicon.glyphicon-star
+          |  Dropdown 
+          span.caret
+        ul.dropdown-menu(role="menu")
+          li
+            a(href="#")
+              | Action
+          li
+            a(href="#")
+              | Another action
+          li
+            a(href="#")
+              | Something else here
+          li.divider
+          li
+            a(href="#")
+              | Separated link
+          li.divider
+          li
+            a(href="#")
+              | One more separated link
+              
+      li
+        form.navbar-search.pull-left
+          input.search-query.form-control.col-md-10(type="text", name="query", placeholder="Search")
+    //- <!-- search forms ends -->
+//- <!-- topbar ends -->
