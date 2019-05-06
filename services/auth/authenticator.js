@@ -1,7 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const authSetting = require('../config/auth.json');
-const debug = require('debug')('factorioclone:*');
+const debug = require('debug')('factorioclone:Authenticator');
+const users = require('../config/users.js');
 
 class Authenticator{
     static initialize(app){
@@ -19,9 +20,18 @@ class Authenticator{
         // deserialize
         // 毎回セッションに保存されたユーザ情報を復元する
         passport.deserializeUser((serializeUser, done) => {
+            const loginUser = users.filter(x => x.code === serializeUser)[0];
             //DBから取得したりするけど、今回は何もしないです。
-            return done(null, serializeUser);
+            return done(null, loginUser);
         })
+    }
+
+    /**
+     * ユーザレシピがなければ新規作成する
+     * Mod設定はまた別
+     */
+    static initRecipe(){
+        let 
     }
 
     static setStrategy(){
@@ -38,9 +48,10 @@ class Authenticator{
                     passReqToCallback: true
                 },
                 ((req, username, password, done) => {
+                    const loginUser = users.filter(x => x.code === username && x.password === password);
                     
                     // validate
-                    if(username == 'admin' && password == 'admin'){
+                    if(loginUser.length === 1){
                         //success
                         return done(null, username);
                     } else {

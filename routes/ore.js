@@ -7,13 +7,15 @@ const authSetting = require('../services/config/auth.json');
 // dashboard
 router.get('/', Authenticator.isAuthenticated, (req, res) => {
     res.render('ore/index',{
-        title: 'Faclone'
+        title: 'Faclone',
+        loginUser: req.user
     });
 });
 
 router.get('/mining', Authenticator.isAuthenticated, (req, res) => {
     res.render('ores/mining',{
-        title: 'Faclone'
+        title: 'Faclone',
+        loginUser: req.user
     });
 });
 

@@ -5,8 +5,9 @@ const debug = require('debug')('factorioclone:*');
 const authSetting = require('../services/config/auth.json');
 
 router.get('/', Authenticator.isAuthenticated, (req, res) => {
-    res.render('index',{
-        title: 'Faclone'
+    res.render('dashboard',{
+        title: 'Faclone',
+        loginUser: req.user
     });
 });
 
@@ -18,7 +19,7 @@ router.get('/login', (req, res) => {
         const message = req.flash();
         res.render('login', {
             message: message.error,
-            title: 'ログイン',
+            title: 'Faclone',
             debugMode: authSetting.debugMode
         });
     }

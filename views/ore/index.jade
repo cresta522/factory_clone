@@ -32,7 +32,7 @@ block content
 
     div.row
       div.col-md-3.col-sm-3.col-xs-6
-        a.well.top-block(href="#", data-toggle="tooltip", title="6 new members.")
+        a.well.top-block(href="#", data-toggle="tooltip", title="0 total ores.")
           i.glyphicon.glyphicon-asterisk.blue
           div
             | Total ores
@@ -41,7 +41,7 @@ block content
           span.notification
             | 0
       div.col-md-3.col-sm-3.col-xs-6
-        a.well.top-block(href="#", data-toggle="tooltip", title="4 new pro members.")
+        a.well.top-block(href="#", data-toggle="tooltip", title="0 neccesary ores.")
           i.glyphicon.glyphicon-ok.green
           div
             | 必要量
@@ -50,7 +50,7 @@ block content
           span.notification.green
             | 0
       div.col-md-3.col-sm-3.col-xs-6
-        a.well.top-block(href="#", data-toggle="tooltip", title="$34 new sales.")
+        a.well.top-block(href="#", data-toggle="tooltip", title="0 not enough ores.")
           i.glyphicon.glyphicon-remove.yellow
           div
             | 不足量
@@ -81,10 +81,31 @@ block content
                 | 鉱石の掘削
                 br
                 small
-                  | ここで採掘量を決める。何を採掘するのか、自動か、手動か、等。              
+                  | ここで採掘量を決める。何を採掘するのか、自動か、手動か、等。
 
               p.center-block.download-buttons
                 a.btn.btn-primary.btn-lg(href="/")
                   i.glyphicon.glyphicon-chevron-left.glyphicon-white
-                  |  Back to 
+                  |  Back to Dashboard
     //- Introduction end
+    //- Form Elements start
+    div.row
+      div.box.col-md-12
+        div.box-inner
+          div.box-header.well(data-original-title="")
+            h2
+              i.glyphicon.glyphicon-edit
+              |  Form Elements
+            
+            div.box-icon
+              a.btn.btn-setting.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-cog
+              a.btn.btn-minimize.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-chevron-up
+              a.btn.btn-close.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-remove
+          div.box-content
+            div.control-group
+              label.control-label(for="oreType")
+                | Ore Type
+    //- Form Elements end

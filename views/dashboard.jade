@@ -1,0 +1,108 @@
+extends layout
+
+block content
+
+  //- noscript starts
+  noscript
+    div.alert.alert-block.col-md-12
+      h4.alert-heading
+        | Warning!
+      p
+        | You need to have 
+        a(href="http://en.wikipedia.org/wiki/JavaScript", target="_blank")
+          | JavaScript
+        | enabled to use this site.
+  //- noscript ends
+
+  //- <!-- content starts -->
+  div#content.col-lg-10.col-sm-10
+    //- breadcrumb start
+    div
+      ul.breadcrumb
+        li
+          a(href="/")
+            | Home
+        li
+          a(href="/")
+            | Dashboard
+    //- breadcrumb end
+
+    div.row
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="6 new members.")
+          i.glyphicon.glyphicon-user.blue
+          div
+            | Total Members
+          div
+            | 507
+          span.notification
+            | 6
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="4 new pro members.")
+          i.glyphicon.glyphicon-star.green
+          div
+            | Pro Members
+          div
+            | 228
+          span.notification.green
+            | 4
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="$34 new sales.")
+          i.glyphicon.glyphicon-shopping-cart.yellow
+          div
+            | Sales
+          div
+            | $13320
+          span.notification.yellow
+            | $34
+      div.col-md-3.col-sm-3.col-xs-6
+        a.well.top-block(href="#", data-toggle="tooltip", title="12 new messages.")
+          i.glyphicon.glyphicon-envelope.red
+          div
+            | Messages
+          div
+            | 25
+          span.notification.red
+            | 12
+  
+    //- Introduction start
+    div.row
+      div.box.col-md-12
+        div.box-inner
+          div.box-header.well
+            h2
+              i.glyphicon.glyphicon-info-sign
+              |  Introduction
+            div.box-icon
+              a.btn.btn-setting.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-cog
+              a.btn.btn-minimize.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-chevron-up
+              a.btn.btn-close.btn-round.btn-default(href="#")
+                i.glyphicon.glyphicon-remove
+
+          div.box-content.row
+            div.col-lg-7.col-md-12
+              h1
+                | Charisma
+                br
+                small
+                  | free, premium quality, responsive, multiple skin admin template.
+              p
+                | It's a live demo of the template. I have created Charisma to ease the repeat work I have to do on my
+                | projects. Now I re-use Charisma as a base for my admin panel work and I am sharing it with you :)
+              p
+                b
+                  | All pages in the menu are functional, take a look at all, please share this with your followers.
+
+              p.center-block.download-buttons
+                a.btn.btn-primary.btn-lg(href="http://usman.it/free-responsive-admin-template/")
+                  i.glyphicon.glyphicon-chevron-left.glyphicon-white
+                  |  Back to article
+                a.btn.btn-default.btn-lg(href="http://usman.it/free-responsive-admin-template/")
+                  i.glyphicon.glyphicon-download-alt
+                  |  Download Page
+    //- Introduction end
+
+
+
